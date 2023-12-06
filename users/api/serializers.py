@@ -20,14 +20,9 @@ class UserSerializer(ModelSerializer):
 
 
 class ProfileSerializer(ModelSerializer):
-    username = CharField(source="user.username")
-    fist_name = CharField(source="user.first_name")
-    last_name = CharField(source="user.last_name")
-    email = CharField(source="user.email")
-
     class Meta:
         model = Profile
-        fields = ("id", "user", "first_name", "last_name", "email")
+        fields = ("id", "username", "first_name", "last_name", "email")
 
 
 class MeSerializer(UserSerializer):
