@@ -16,6 +16,9 @@ jobs:
       - name: Login to Docker Hub
         run: docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_ACCESS_TOKEN }}
 
+      - name: Run Tests
+        run: python manage.py test
+
       - name: Build and push Docker image
         env:
           IMAGE_TAG: your-image-tag  # Replace with your desired image tag
