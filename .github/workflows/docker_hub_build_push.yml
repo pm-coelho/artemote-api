@@ -21,7 +21,7 @@ jobs:
 
       - name: Build and push Docker image
         env:
-          IMAGE_TAG: your-image-tag  # Replace with your desired image tag
+          IMAGE_TAG: dev
         run: |
-          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/artemote-api:latest .
-          docker push ${{ secrets.DOCKERHUB_USERNAME }}/artemote-api:latest
+          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/artemote-api:${IMAGE_TAG} .
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/artemote-api:${IMAGE_TAG}
