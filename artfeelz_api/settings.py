@@ -93,7 +93,7 @@ WSGI_APPLICATION = "artfeelz_api.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": os.environ.get("POSTGRES_ENGINE"),
+        "ENGINE": os.environ.get("POSTGRES_ENGINE", "django.db.backends.postgresql"),
         "NAME": os.environ.get("POSTGRES_DATABASE"),
         "USER": os.environ.get("POSTGRES_USER"),
         "PASSWORD": os.environ.get("POSTGRES_PASSWORD"),
