@@ -27,7 +27,7 @@ SECRET_KEY = "django-insecure-rd1mad+0(#r_^miox!24n!c+zu$$vyhm*p)&kk!69g^*^@5*bi
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["localhost", "51.20.140.166"]
+ALLOWED_HOSTS = ["localhost", "51.20.140.166", "api.artemoted.com"]
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
