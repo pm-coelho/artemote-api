@@ -1,0 +1,43 @@
+# Use a Python image as base
+FROM python:3.11
+
+
+ENV DJANGO_ENV=${DJANGO_ENV} \
+    PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONFAULTHANDLER=1 \
+    PYTHONUNBUFFERED=1 \
+    PYTHONHASHSEED=random \
+    # pip:
+    PIP_NO_CACHE_DIR=off \
+    PIP_DISABLE_PIP_VERSION_CHECK=on \
+    PIP_DEFAULT_TIMEOUT=100 \
+    # poetry:
+    POETRY_VERSION=1.6.1 \
+    POETRY_VIRTUALENVS_CREATE=false \
+    POETRY_CACHE_DIR='/var/cache/pypoetry'
+
+
+# Set working directory in the container
+WORKDIR /app
+
+# Install system dependencies
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
+    netcat-traditional \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install Python dependencies
+RUN pip install --upgrade pip \
+    && pip install "poetry==$POETRY_VERSION" && poetry --version
+
+COPY pyproject.toml poetry.lock /app/
+
+RUN poetry install --no-interaction --no-ansi
+
+# Copy the rest of the application code
+COPY . /app/
+
+RUN python manage.py collectstatic --noinput
+
+# Start the Django application using gunicorn
+CMD gunicorn artfeelz_api.wsgi:application --bind 0.0.0.0:8000

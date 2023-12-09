@@ -27,12 +27,22 @@ SECRET_KEY = "django-insecure-rd1mad+0(#r_^miox!24n!c+zu$$vyhm*p)&kk!69g^*^@5*bi
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["localhost", "51.20.140.166", "api.artemoted.com"]
+ALLOWED_HOSTS = ["localhost", "51.20.140.166", "api.artemoted.com", "api"]
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "http://localhost:8000",
+    "https://artemoted.com",
+    "https://www.artemoted.com",
+    "https://api.artemoted.com",
 ]
+CORS_ALLOW_ALL_HEADERS = True
+CSRF_TRUSTED_ORIGINS = [
+    "https://artemoted.com",
+    "https://www.artemoted.com",
+    "https://api.artemoted.com",
+]
+
 
 # Application definition
 
@@ -58,12 +68,12 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    "corsheaders.middleware.CorsMiddleware",
     "djangorestframework_camel_case.middleware.CamelCaseMiddleWare",
 ]
 
@@ -137,6 +147,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = "static/"
+STATIC_ROOT = os.path.join(BASE_DIR, "static/")
 MEDIA_URL = "media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "/media/")
 
