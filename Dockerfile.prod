@@ -40,4 +40,4 @@ COPY . /app/
 RUN python manage.py collectstatic --noinput
 
 # Start the Django application using gunicorn
-CMD gunicorn artfeelz_api.wsgi:application --bind 0.0.0.0:8000
+# CMD gunicorn artfeelz_api.wsgi:application --bind 0.0.0.0:8000
