@@ -10,7 +10,7 @@ from .serializers import ArtworkSerializer
 
 
 class ArtworkViewSet(viewsets.ReadOnlyModelViewSet):
-    queryset = Artwork.objects.all()
+    queryset = Artwork.objects.order_by("-created_at").all()
     serializer_class = ArtworkSerializer
 
     @action(detail=True, methods=["POST"], url_path="emotions")
