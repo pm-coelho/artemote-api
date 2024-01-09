@@ -22,6 +22,7 @@ from django.conf.urls.static import static
 
 from users.api.views import MeViewSet
 from artworks.api.urls import artworks_router
+from events.api.urls import events_router
 
 from .redoc import schema_view
 
@@ -35,4 +36,5 @@ urlpatterns = [
     path("api/auth/token/refresh", TokenRefreshView.as_view(), name="token-refresh"),
     path("api/auth/me", MeViewSet.as_view(), name="me"),
     path(r"api/", include(artworks_router.urls)),
+    path(r"api/", include(events_router.urls)),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

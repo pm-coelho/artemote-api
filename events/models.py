@@ -5,7 +5,7 @@ from artworks.models import Artwork
 
 
 def upload_to(instance, filename):
-    return os.path.join("events", instance.slug, filename)
+    return os.path.join("events", str(instance.id), filename)
 
 
 class Event(models.Model):
