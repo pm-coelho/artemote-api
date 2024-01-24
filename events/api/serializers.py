@@ -1,17 +1,17 @@
 from rest_framework.serializers import (
     ModelSerializer,
     ImageField,
-    SerializerMethodField,
 )
 
 from artworks.api.serializers import ArtworkSerializer
 
+from shared.api.serializers import AddressSerializer
 from events.models import Event
 
 class EventSerializer(ModelSerializer):
     image = ImageField(use_url=True)
     artworks = ArtworkSerializer(many=True, read_only=True)
-    location = SerializerMethodField()
+    address = AddressSerializer(read_only=True)
 
     class Meta:
         model = Event
@@ -23,10 +23,5 @@ class EventSerializer(ModelSerializer):
             "end_date",
             "image",
             "artworks",
-            "location",
+            "address",
         )
-
-    def get_location(self, obj):
-        if obj.location:
-            return [obj.location.y, obj.location.x]
-        return None

@@ -1,7 +1,7 @@
 import os
 from django.db import models
-from django.contrib.gis.db.models import PointField
 
+from shared.models import Address
 from artworks.models import Artwork
 
 
@@ -12,14 +12,20 @@ def upload_to(instance, filename):
 class Event(models.Model):
     name = models.CharField(max_length=200)
     description = models.TextField()
-    location = PointField(null=True, blank=True)
+    address = models.ForeignKey(
+        Address,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="events"
+    )
 
     image = models.ImageField(upload_to=upload_to, blank=True, null=True)
-
     artworks = models.ManyToManyField(Artwork, blank=True)
 
     start_date = models.DateTimeField(null=True, blank=True)
     end_date = models.DateTimeField(null=True, blank=True)
+
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

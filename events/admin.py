@@ -8,11 +8,10 @@ from .models import Event
 class EventAdmin(OSMGeoAdmin):
     list_display = (
         "name",
-        "location",
         "start_date",
         "end_date",
         "created_at",
         "updated_at",
     )
     list_filter = ("start_date", "end_date", "created_at", "updated_at")
-    search_fields = ("name", "location", "description")
+    search_fields = ("name", "description")
