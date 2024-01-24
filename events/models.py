@@ -1,5 +1,6 @@
 import os
 from django.db import models
+from django.contrib.gis.db.models import PointField
 
 from artworks.models import Artwork
 
@@ -11,7 +12,7 @@ def upload_to(instance, filename):
 class Event(models.Model):
     name = models.CharField(max_length=200)
     description = models.TextField()
-    location = models.CharField(max_length=200)
+    location = PointField(null=True, blank=True)
 
     image = models.ImageField(upload_to=upload_to, blank=True, null=True)
 

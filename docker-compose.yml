@@ -20,7 +20,7 @@ services:
       - .:/app
 
   db:
-    image: postgres:16.1
+    image: postgis/postgis:16-master
     restart: unless-stopped
     volumes:
       - postgres_data:/var/lib/postgresql/data/
