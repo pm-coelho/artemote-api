@@ -21,6 +21,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 from users.api.views import MeViewSet
+from users.api.urls import users_router
 from artworks.api.urls import artworks_router
 from events.api.urls import events_router
 
@@ -35,6 +36,7 @@ urlpatterns = [
     path("api/auth/token", TokenObtainPairView.as_view(), name="token-obtain-pair"),
     path("api/auth/token/refresh", TokenRefreshView.as_view(), name="token-refresh"),
     path("api/auth/me", MeViewSet.as_view(), name="me"),
+    path(r"api/", include(users_router.urls)),
     path(r"api/", include(artworks_router.urls)),
     path(r"api/", include(events_router.urls)),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
