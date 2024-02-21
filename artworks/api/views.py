@@ -34,3 +34,9 @@ class ArtworkViewSet(viewsets.ReadOnlyModelViewSet):
         artwork.refresh_from_db()
 
         return Response(ArtworkSerializer(artwork).data)
+
+
+    @action(detail=False, methods=["GET"], url_path="random")
+    def random(self, request):
+        artwork = Artwork.objects.order_by("?").first()
+        return Response(self.get_serializer(artwork).data)
