@@ -21,6 +21,8 @@ class MeViewSet(ListAPIView):
 class ArtistViewSet(ReadOnlyModelViewSet):
     queryset = (
         User.objects
+        .select_related("profile")
+        .prefetch_related("profile__artworks")
         .annotate(num_artworks=Count('profile__artworks'))
         .filter(num_artworks__gt=0)
         .all()

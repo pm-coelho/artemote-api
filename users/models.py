@@ -30,6 +30,11 @@ class Profile(models.Model):
     def email(self):
         return self.user.email
 
+    @property
+    def events(self):
+        from events.models import Event
+        return Event.objects.filter(artworks__in=self.artworks.all()).order_by("-start_date").order_by("-end_date").distinct()
+
     def __str__(self):
         return f"{self.user} - Profile"
 
@@ -37,3 +42,4 @@ class Profile(models.Model):
     def user_post_save_hook(sender, instance, created, **kwargs):
         if created:
             Profile.objects.create(user=instance)
+

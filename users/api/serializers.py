@@ -2,6 +2,8 @@ from django.contrib.auth import get_user_model
 from rest_framework.serializers import ModelSerializer, ImageField
 
 from ..models import Profile
+
+from events.models import Event
 from artworks.models import Artwork
 
 User = get_user_model()
@@ -42,9 +44,25 @@ class ArtistArtworkSerializer(ModelSerializer):
             "photo",
         )
 
+class ArtistEventSerializer(ModelSerializer):
+    image = ImageField(use_url=True)
+
+    class Meta:
+        model = Event
+        fields = (
+            "id",
+            "name",
+            "description",
+            "image",
+            "start_date",
+            "end_date",
+        )
+
+
 class ArtistSerializer(UserSerializer):
     artworks = ArtistArtworkSerializer(many=True, read_only=True, source="profile.artworks")
     photo = ImageField(use_url=True, source="profile.photo")
+    events = ArtistEventSerializer(many=True, read_only=True, source="profile.events")
 
     class Meta:
         model = User
@@ -54,7 +72,8 @@ class ArtistSerializer(UserSerializer):
             "first_name",
             "last_name",
             "email",
-            "artworks",
             "photo",
             "date_joined",
+            "artworks",
+            "events",
         )
